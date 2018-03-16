@@ -1,0 +1,878 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Homework 1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{homework-1}{%
+\section{Homework 1}\label{homework-1}}
+
+    This homework is intended as a brief overview of the machine learning
+process and the various topics you will learn in this class. We hope
+that this exercise will allow you to put in context the information you
+learn with us this semester. Don't worry if you don't understand the
+techniques here (that's what you'll learn this semester!); we just want
+to show you how you can use sklearn to do simple machine learning.
+
+    \hypertarget{setup}{%
+\subsection{Setup}\label{setup}}
+
+    First let us import some libraries.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{datasets} \PY{k}{import} \PY{n}{fetch\PYZus{}mldata}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{OneHotEncoder}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{accuracy\PYZus{}score}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}\PY{p}{,} \PY{n}{Ridge}\PY{p}{,} \PY{n}{LogisticRegression}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestClassifier}\PY{p}{,} \PY{n}{AdaBoostClassifier}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{svm} \PY{k}{import} \PY{n}{LinearSVC}\PY{p}{,} \PY{n}{SVC}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{PCA}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neural\PYZus{}network} \PY{k}{import} \PY{n}{MLPClassifier}
+\end{Verbatim}
+
+
+    For this homework assignment, we will be using the MNIST dataset. The
+MNIST data is a collection of black and white 28x28 images, each
+picturing a handwritten digit. These were collected from digits people
+write at the post office, and now this dataset is a standard benchmark
+to evaluate models against used in the machine learning community. This
+may take some time to download. If this errors out, try rerunning it.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{mnist} \PY{o}{=} \PY{n}{fetch\PYZus{}mldata}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MNIST original}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{X} \PY{o}{=} \PY{n}{mnist}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{y} \PY{o}{=} \PY{n}{mnist}\PY{o}{.}\PY{n}{target}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{data-exploration}{%
+\subsection{Data Exploration}\label{data-exploration}}
+
+    Let us first explore this data a little bit.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{y}\PY{o}{.}\PY{n}{shape}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(70000, 784) (70000,)
+
+    \end{Verbatim}
+
+    The X matrix here contains all the digit pictures. The data is
+(n\_samples x n\_features), meaning this data contains 70,000 pictures,
+each with 784 features (the 28x28 image is flattened into a single row).
+The y vector contains the label for each digit, so we know which digit
+(or class - class means category) is in each picture.
+
+    Let's try and visualize this data a bit. Change around the index
+variable to explore more.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{index} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{}15000, 28999, 67345}
+        \PY{n}{image} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{28}\PY{p}{,} \PY{l+m+mi}{28}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Label is }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} <matplotlib.image.AxesImage at 0x17e6ddd8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Notice that each pixel value ranges from 0-255. When we train our
+models, a good practice is to \emph{standardize} the data so different
+features can be compared more equally. Here we will use a simple
+standardization, squeezing all values into the 0-1 interval range.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{X} \PY{o}{=} \PY{n}{X} \PY{o}{/} \PY{l+m+mi}{255}
+\end{Verbatim}
+
+
+    When we train our model, we want it to have the lowest error. Error
+presents itself in 2 ways: bias (how close our model is to the ideal
+model), and variance (how much our model varies with different
+datasets). If we train our model on a chunk of data, and then test our
+model on that same data, we will only witness the first type of error -
+bias. However, if we test on new, unseen data, that will reflect both
+bias and variance. This is the reasoning behind cross validation.
+
+    So, we want to have 2 datasets, train and test, each used for the named
+purpose exclusively.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.25}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{applying-models}{%
+\subsection{Applying Models}\label{applying-models}}
+
+    Now we will walk you through applying various models to try and achieve
+the lowest error rate on this data.
+
+    Each of our labels is a number from 0-9. If we simply did regression on
+this data, the labels would imply some sort of ordering of the classes
+(ie the digit 8 is more of the digit 7 than the digit 3 is, etc. We can
+fix this issue by one-hot encoding our labels. So, instead of each label
+being a simple digit, each label is a vector of 10 entries. 9 of those
+entries are zero, and only 1 entry is equal to one, corresponding to the
+index of the digit. Let's take a look.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{enc} \PY{o}{=} \PY{n}{OneHotEncoder}\PY{p}{(}\PY{n}{sparse}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{y\PYZus{}hot} \PY{o}{=} \PY{n}{enc}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{y}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        \PY{n}{y\PYZus{}train\PYZus{}hot} \PY{o}{=} \PY{n}{enc}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        \PY{n}{y\PYZus{}hot}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} (70000, 10)
+\end{Verbatim}
+            
+    Remember how the first sample is the digit zero? Let's now look at the
+new label at that index.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{y\PYZus{}hot}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} array([1., 0., 0., 0., 0., 0., 0., 0., 0., 0.])
+\end{Verbatim}
+            
+    \hypertarget{linear-regression}{%
+\subsubsection{Linear Regression}\label{linear-regression}}
+
+    There are 3 steps to build your model: create the model, train the
+model, then use your model to make predictions). In the sklearn API,
+this is made very clear. First you instantiate the model (constructor),
+then you call train it with the \texttt{fit} method, then you can make
+predictions on new data with the \texttt{test} method.
+
+    First, let's do a basic linear regression.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{linear} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+        \PY{n}{linear}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}hot}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} LinearRegression(copy\_X=True, fit\_intercept=True, n\_jobs=1, normalize=False)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} use trained model to predict both train and test sets}
+         \PY{n}{y\PYZus{}train\PYZus{}pred} \PY{o}{=} \PY{n}{linear}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}test\PYZus{}pred} \PY{o}{=} \PY{n}{linear}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} print accuracies}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train acc: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train\PYZus{}pred}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test acc: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test\PYZus{}pred}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+train acc:  0.8589714285714286
+test acc:  0.8516571428571429
+
+    \end{Verbatim}
+
+    Note on interpretability: you can view the weights of your model with
+\texttt{linear.coef\_}
+
+    \hypertarget{ridge-regression}{%
+\subsubsection{Ridge Regression}\label{ridge-regression}}
+
+    Let us try and regularize by adding a penalty term to see if we can get
+anything better. We can penalize via the L2 norm, aka Ridge Regression.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{ridge} \PY{o}{=} \PY{n}{Ridge}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{)}
+         \PY{n}{ridge}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}hot}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train acc: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{ridge}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test acc: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{ridge}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+train acc:  0.8589333333333333
+test acc:  0.8518285714285714
+
+    \end{Verbatim}
+
+    The alpha controls how much to penalize the weights. Play around with it
+to see if you can improve the test accuracy.
+
+    Now you have seen how to use some basic models to fit and evaluate your
+data. You will now walk through working with more models. Fill in code
+where needed.
+
+    \hypertarget{logistic-regression}{%
+\subsubsection{Logistic Regression}\label{logistic-regression}}
+
+    We will now do logistic regression. From now on, the models will
+automatically one-hot the labels (so we don't need to worry about it).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{logreg} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{C}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{multi\PYZus{}class}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{multinomial}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{solver}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{saga}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{)}
+         \PY{n}{logreg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train acc: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{logreg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test acc: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{logreg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+train acc:  0.9179238095238095
+test acc:  0.9178285714285714
+
+    \end{Verbatim}
+
+    Our accuracy has jumped \textasciitilde{}5\%! Why is this? Logistic
+Regression is a more complex model - instead of computing raw scores as
+in linear regression, it does one extra step and squashes values between
+0 and 1. This means our model now optimizes over \emph{probabilities}
+instead of raw scores. This makes sense since our vectors are 1-hot
+encoded.
+
+    The C hyperparameter controls inverse regularization strength (inverse
+for this model only). Reguralization is important to make sure our model
+doesn't overfit (perform much better on train data than test data). Play
+around with the C parameter to try and get better results! You should be
+able to hit 92\%.
+
+    \hypertarget{random-forest}{%
+\subsubsection{Random Forest}\label{random-forest}}
+
+    Decision Trees are a completely different type of classifier. They
+essentially break up the possible space by repeatedly ``splitting'' on
+features to keep narrowing down the possibilities. Decision Trees are
+normally individually very week, so we typically average them together
+in bunches called Random Forest.
+
+    Now you have seen many examples for how to construct, fit, and evaluate
+a model. Now do the same for Random Forest using the
+\href{http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html}{documentation
+here}. You should be able to create one easily without needing to
+specify any constructor parameters.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{clf} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{max\PYZus{}depth} \PY{o}{=} \PY{l+m+mi}{50}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,}\PY{n}{n\PYZus{}estimators}\PY{o}{=} \PY{l+m+mi}{100}\PY{p}{,}\PY{n}{min\PYZus{}samples\PYZus{}split}\PY{o}{=} \PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test acc: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train acc: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+test acc:  0.9698285714285714
+train acc:  0.9998857142857143
+
+    \end{Verbatim}
+
+    WOWZA! That train accuracy is amazing, let's see if we can boost up the
+test accuracy a bit (since that's what really counts). Try and play
+around with the hyperparameters to see if you can edge out more accuracy
+(look at the documentation for parameters in the constructor). Focus on
+\texttt{n\_estimators}, \texttt{min\_samples\_split},
+\texttt{max\_features}. You should be able to hit \textasciitilde{}97\%.
+
+    \hypertarget{svc}{%
+\subsubsection{SVC}\label{svc}}
+
+    A support vector classifier is another completely different type of
+classifier. It tries to find the best separating hyperplane through your
+data.
+
+    The SVC will toast our laptops unless we reduce the data dimensionality.
+Let's keep 80\% of the variation, and get rid of the rest. (This will
+cause a slight drop in performance, but not by much).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{n}{whiten}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{X\PYZus{}train\PYZus{}pca} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         \PY{n}{X\PYZus{}test\PYZus{}pca} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    Great! Now let's take a look at what that actually did.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{X\PYZus{}train\PYZus{}pca}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} (52500, 43)
+\end{Verbatim}
+            
+    Remember, before we had 784 (28x28) features! However, PCA found just 43
+basis features that explain 80\% of the data. So, we went to just 5\% of
+the original input space, but we still retained 80\% of the information!
+Nice.
+
+    This \href{http://colah.github.io/posts/2014-10-Visualizing-MNIST/}{blog
+post} explains dimensionality reduction with MNIST far better than I
+can. It's a short read (\textless{}10 mins), and it contains some pretty
+cool visualizations. Read it and jot down things you learned from the
+post or further questions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{lsvc} \PY{o}{=} \PY{n}{LinearSVC}\PY{p}{(}\PY{n}{dual}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{)}
+         \PY{n}{lsvc}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train acc: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{lsvc}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test acc: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{lsvc}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}pca}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+train acc:  0.8915238095238095
+test acc:  0.8950857142857143
+
+    \end{Verbatim}
+
+    -It is hard to conceptualize higher dims. -By looking at 2 pix. at a
+time help us gain a little intuition but not much. -PCA =\textgreater{}
+find the best horiz. + vert. angle -Defined the cost of the distance of
+2 points in the original space and the visualization.(Just wondering
+here, this is fundamental sorry, but why is it bad for distances not to
+be the same? Is it because our approximations in comparison to the
+original space aren't good enough?
+
+    Now let's train our first SVC. The LinearSVC can only find a linear
+decision boundary (the hyperplane).
+
+    SVMs are really interesting because they have something called the
+\emph{dual formulation}, in which the computation is expressed as
+training point inner products. This means that data can be lifted into
+higher dimensions easily with this ``kernel trick''. Data that is not
+linearly separable in a lower dimension can be linearly separable in a
+higher dimension - which is why we conduct the transform. Let us
+experiment.
+
+    A transformation that lifts the data into a higher-dimensional space is
+called a kernel. A polynomial kernel expands the feature space by
+computing all the polynomial cross terms to a specific degree.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{psvc} \PY{o}{=} \PY{n}{SVC}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{poly}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{degree}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{cache\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{4000}\PY{p}{)}
+         \PY{n}{psvc}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train acc: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{psvc}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test acc: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{psvc}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}pca}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+train acc:  0.9303809523809524
+test acc:  0.9277142857142857
+
+    \end{Verbatim}
+
+    Play around with the degree of the polynomial kernel to see what
+accuracy you can get.
+
+    The RBF kernel uses the gaussian function to create an infinite
+dimensional space - a gaussian peak at each datapoint. Now fiddle with
+the \texttt{C} and \texttt{gamma} parameters of the gaussian kernel
+below to see what you can get.
+\href{http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html}{Here's
+documentation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{rsvc} \PY{o}{=} \PY{n}{SVC}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rbf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{cache\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{4000}\PY{p}{,}\PY{n}{C} \PY{o}{=} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{n}{gamma} \PY{o}{=} \PY{l+m+mf}{0.10000000000000001}\PY{p}{)}
+         \PY{n}{rsvc}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train acc: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{rsvc}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test acc: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{rsvc}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}pca}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+train acc:  0.9996190476190476
+test acc:  0.9715428571428572
+
+    \end{Verbatim}
+
+    Isn't that just amazing accuracy?
+
+    \hypertarget{basic-neural-network}{%
+\subsection{Basic Neural Network}\label{basic-neural-network}}
+
+    You should never do neural networks in sklearn. Use Keras (which we will
+teach you later in this class), Tensorflow, PyTorch, etc. However, in an
+effort to keep this homework somewhat cohesive, let us proceed.
+
+    Basic neural networks proceed in layers. Each layer has a certain number
+of nodes, representing how expressive that layer can be. Below is a
+sample network, with an input layer, one hidden (middle) layer of 50
+neurons, and finally the output layer.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{nn} \PY{o}{=} \PY{n}{MLPClassifier}\PY{p}{(}\PY{n}{hidden\PYZus{}layer\PYZus{}sizes}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{79}\PY{p}{,}\PY{p}{)}\PY{p}{,} \PY{n}{solver}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{nn}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train acc: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test acc: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}pca}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Iteration 1, loss = 1.01254076
+Iteration 2, loss = 0.32751621
+Iteration 3, loss = 0.23915568
+Iteration 4, loss = 0.19751170
+Iteration 5, loss = 0.17059502
+Iteration 6, loss = 0.15126529
+Iteration 7, loss = 0.13621792
+Iteration 8, loss = 0.12447136
+Iteration 9, loss = 0.11494617
+Iteration 10, loss = 0.10679176
+Iteration 11, loss = 0.09981043
+Iteration 12, loss = 0.09381982
+Iteration 13, loss = 0.08841084
+Iteration 14, loss = 0.08364485
+Iteration 15, loss = 0.07960517
+Iteration 16, loss = 0.07604351
+Iteration 17, loss = 0.07254231
+Iteration 18, loss = 0.06956803
+Iteration 19, loss = 0.06671120
+Iteration 20, loss = 0.06417710
+Iteration 21, loss = 0.06187784
+Iteration 22, loss = 0.05974931
+Iteration 23, loss = 0.05739583
+Iteration 24, loss = 0.05585498
+Iteration 25, loss = 0.05407596
+Iteration 26, loss = 0.05234284
+Iteration 27, loss = 0.05064165
+Iteration 28, loss = 0.04918727
+Iteration 29, loss = 0.04770698
+Iteration 30, loss = 0.04664624
+Iteration 31, loss = 0.04518638
+Iteration 32, loss = 0.04403251
+Iteration 33, loss = 0.04300997
+Iteration 34, loss = 0.04181048
+Iteration 35, loss = 0.04076342
+Iteration 36, loss = 0.03975030
+Iteration 37, loss = 0.03877849
+Iteration 38, loss = 0.03797901
+Iteration 39, loss = 0.03713841
+Iteration 40, loss = 0.03631333
+Iteration 41, loss = 0.03525449
+Iteration 42, loss = 0.03466339
+Iteration 43, loss = 0.03386499
+Iteration 44, loss = 0.03309855
+Iteration 45, loss = 0.03240580
+Iteration 46, loss = 0.03165026
+Iteration 47, loss = 0.03125218
+Iteration 48, loss = 0.03040673
+Iteration 49, loss = 0.02984574
+Iteration 50, loss = 0.02893843
+Iteration 51, loss = 0.02856855
+Iteration 52, loss = 0.02812534
+Iteration 53, loss = 0.02752400
+Iteration 54, loss = 0.02698096
+Iteration 55, loss = 0.02637162
+Iteration 56, loss = 0.02626186
+Iteration 57, loss = 0.02524655
+Iteration 58, loss = 0.02489274
+Iteration 59, loss = 0.02447820
+Iteration 60, loss = 0.02393401
+Iteration 61, loss = 0.02351949
+Iteration 62, loss = 0.02311629
+Iteration 63, loss = 0.02250454
+Iteration 64, loss = 0.02213151
+Iteration 65, loss = 0.02179007
+Iteration 66, loss = 0.02119444
+Iteration 67, loss = 0.02076577
+Iteration 68, loss = 0.02023529
+Iteration 69, loss = 0.02009694
+Iteration 70, loss = 0.01967978
+Iteration 71, loss = 0.01920875
+Iteration 72, loss = 0.01876024
+Iteration 73, loss = 0.01838159
+Iteration 74, loss = 0.01817495
+Iteration 75, loss = 0.01780424
+Iteration 76, loss = 0.01754374
+Iteration 77, loss = 0.01728434
+Iteration 78, loss = 0.01709405
+Iteration 79, loss = 0.01661481
+Iteration 80, loss = 0.01644136
+Iteration 81, loss = 0.01613165
+Iteration 82, loss = 0.01574348
+Iteration 83, loss = 0.01548615
+Iteration 84, loss = 0.01510562
+Iteration 85, loss = 0.01469885
+Iteration 86, loss = 0.01485058
+Iteration 87, loss = 0.01447543
+Iteration 88, loss = 0.01408642
+Iteration 89, loss = 0.01389315
+Iteration 90, loss = 0.01376749
+Iteration 91, loss = 0.01365156
+Iteration 92, loss = 0.01322730
+Iteration 93, loss = 0.01305004
+Iteration 94, loss = 0.01285659
+Iteration 95, loss = 0.01255851
+Iteration 96, loss = 0.01227519
+Iteration 97, loss = 0.01204527
+Iteration 98, loss = 0.01175572
+Iteration 99, loss = 0.01182303
+Iteration 100, loss = 0.01158196
+Iteration 101, loss = 0.01127795
+Iteration 102, loss = 0.01111277
+Iteration 103, loss = 0.01076580
+Iteration 104, loss = 0.01078729
+Iteration 105, loss = 0.01056234
+Iteration 106, loss = 0.01047111
+Iteration 107, loss = 0.01022370
+Iteration 108, loss = 0.01005072
+Iteration 109, loss = 0.00984248
+Iteration 110, loss = 0.00974749
+Iteration 111, loss = 0.00939729
+Iteration 112, loss = 0.00933676
+Iteration 113, loss = 0.00912403
+Iteration 114, loss = 0.00893841
+Iteration 115, loss = 0.00883802
+Iteration 116, loss = 0.00899741
+Iteration 117, loss = 0.00869182
+Iteration 118, loss = 0.00831723
+Iteration 119, loss = 0.00816780
+Iteration 120, loss = 0.00797559
+Iteration 121, loss = 0.00793632
+Iteration 122, loss = 0.00777010
+Iteration 123, loss = 0.00772077
+Iteration 124, loss = 0.00781756
+Iteration 125, loss = 0.00741389
+Iteration 126, loss = 0.00730178
+Iteration 127, loss = 0.00716668
+Iteration 128, loss = 0.00704242
+Iteration 129, loss = 0.00707805
+Iteration 130, loss = 0.00679371
+Iteration 131, loss = 0.00670616
+Iteration 132, loss = 0.00671115
+Iteration 133, loss = 0.00641973
+Iteration 134, loss = 0.00638538
+Iteration 135, loss = 0.00622427
+Iteration 136, loss = 0.00616862
+Iteration 137, loss = 0.00593977
+Iteration 138, loss = 0.00589148
+Iteration 139, loss = 0.00594575
+Iteration 140, loss = 0.00561810
+Iteration 141, loss = 0.00558298
+Iteration 142, loss = 0.00571186
+Iteration 143, loss = 0.00552673
+Training loss did not improve more than tol=0.000100 for two consecutive epochs. Stopping.
+train acc:  0.9996761904761905
+test acc:  0.9723428571428572
+
+    \end{Verbatim}
+
+    Fiddle around with the hiddle layers. Change the number of neurons, add
+more layers, experiment. You should be able to hit 98\% accuracy.
+
+    Neural networks are optimized with a technique called gradient descent
+(a neural net is just one big function - so we can take the gradient
+with respect to all its parameters, then just go opposite the gradient
+to try and find the minimum). This is why it requires many iterations to
+converge.
+
+    \hypertarget{turning-in}{%
+\subsection{Turning In}\label{turning-in}}
+
+    Convert this notebook to a PDF (file -\textgreater{} download as
+-\textgreater{} pdf via latex) and submit to Gradescope.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
